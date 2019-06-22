@@ -72,11 +72,32 @@ $ export LANG=en_US.UTF-8
 $ pip install -r requirements.txt
 ```
 
+## Docker for Jupyter
+You can build and run the docker using the following process:
+Cloning
+```
+git clone https://github.com/graykode/gpt-2-Pytorch.git gpt-2-pytorch
+```
+
+Building Docker
+```
+cd gpt-2-pytorch && docker build -t gpt2_pytorch_jupyter -f Dockerfile .
+```
+
+Running Docker with GPU support
+```
+echo "http://$(curl ifconfig.io):8888" && nvidia-docker run --ipc=host --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it gpt2_pytorch_jupyter
+```
+
+Running Docker without GPU support
+```
+echo "http://$(curl ifconfig.io):8888" && docker run --ipc=host --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it gpt2_pytorch_jupyter
+```
+
 ## Author
 
 - Tae Hwan Jung(Jeff Jung) @graykode
 - Author Email : [nlkey2022@gmail.com](mailto:nlkey2022@gmail.com)
-
 
 
 ## License
