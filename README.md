@@ -77,23 +77,51 @@ $ pip install -r requirements.txt
 ## Docker for Jupyter
 You can build and run the docker using the following process:
 Cloning
-```
+```shell
 git clone https://github.com/graykode/gpt-2-Pytorch.git gpt-2-pytorch
 ```
 
 Building Docker
-```
+```shell
 cd gpt-2-pytorch && docker build -t gpt2_pytorch_jupyter -f Dockerfile .
 ```
 
 Running Docker with GPU support
-```
+```shell
 echo "http://$(curl ifconfig.io):8888" && nvidia-docker run --ipc=host --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it gpt2_pytorch_jupyter
 ```
 
 Running Docker without GPU support
+```shell
+echo "http://$(curl ifconfig.io):8888" && docker run --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it gpt2_pytorch_jupyter
 ```
-echo "http://$(curl ifconfig.io):8888" && docker run --ipc=host --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it gpt2_pytorch_jupyter
+
+## Docker for API
+
+You can build and run the docker using the following process:
+Cloning
+```shell
+git clone https://github.com/graykode/gpt-2-Pytorch.git gpt-2-pytorch
+```
+
+Building Docker
+```shell
+cd gpt-2-pytorch && docker build -t gpt2_pytorch_api -f Dockerfile-api .
+```
+
+Running Docker with GPU support
+```shell
+echo "http://$(curl ifconfig.io):5000" && nvidia-docker run --ipc=host -p 5000:5000 -it gpt2_pytorch_api
+```
+
+Running Docker without GPU support
+```shell
+echo "http://$(curl ifconfig.io):5000" && docker run -p 5000:5000 -d gpt2_pytorch_api
+```
+
+## API Usage
+```shell
+curl -X POST "http://MY_SUPER_API_IP:5000/generate" -H "accept: application/octet-stream" -H "Content-Type: application/json" -d '{"text":"Once when I was six years old I saw a magnificent picture in a book, called True Stories from Nature, about the primeval forest."}'
 ```
 
 ## Author
