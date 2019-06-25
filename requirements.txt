@@ -1,2 +1,3 @@
+pytorch
 tqdm
 regex==2017.4.5
